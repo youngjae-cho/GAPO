@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" role="img" aria-labelledby="title desc">
+  <title id="title">How GAPO uses a geometric anchor</title>
+  <desc id="desc">Preference pairs are evaluated with a shared perturbed anchor. Their Anchor Gaps determine update weights, with larger gaps receiving smaller weights.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f1ff"/>
+      <stop offset="1" stop-color="#eef7fb"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8" fill="none" stroke="#9294b4" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="290" rx="20" fill="url(#background)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="32" y="37" fill="#625589" font-size="12" font-weight="700" letter-spacing="2">GEOMETRIC ANCHOR PREFERENCE OPTIMIZATION</text>
+    <g fill="white" stroke="#e0deed">
+      <rect x="32" y="62" width="258" height="156" rx="14"/>
+      <rect x="324" y="62" width="258" height="156" rx="14"/>
+      <rect x="616" y="62" width="258" height="156" rx="14"/>
+      <rect x="908" y="62" width="258" height="156" rx="14"/>
+    </g>
+    <g fill="#7756c7" font-size="12" font-weight="700">
+      <text x="54" y="92">01 / PREFERENCE PAIRS</text>
+      <text x="346" y="92">02 / SHARED ANCHOR</text>
+      <text x="638" y="92">03 / ANCHOR GAP</text>
+      <text x="930" y="92">04 / WEIGHTED UPDATE</text>
+    </g>
+    <g fill="#23243b" font-size="19" font-weight="700">
+      <text x="54" y="127">Measure preference</text>
+      <text x="346" y="127">Probe local stability</text>
+      <text x="638" y="127">Compare margins</text>
+      <text x="930" y="127">Scale each pair</text>
+    </g>
+    <g fill="#616478" font-size="14">
+      <text x="54" y="157">Chosen and rejected responses</text>
+      <text x="54" y="180">Length-normalized log-probability</text>
+      <text x="346" y="157">One perturbation for the batch</text>
+      <text x="346" y="180">Anchor stays detached</text>
+      <text x="638" y="157">Current margin − anchor margin</text>
+      <text x="638" y="180">A shared test of brittleness</text>
+      <text x="930" y="157">Larger gap → smaller weight</text>
+      <text x="930" y="180">Preserve preference direction</text>
+    </g>
+    <g stroke="#9294b4" stroke-width="1.5" marker-end="url(#arrow)">
+      <path d="M297 141 H313"/>
+      <path d="M589 141 H605"/>
+      <path d="M881 141 H897"/>
+    </g>
+    <text x="600" y="254" text-anchor="middle" fill="#625589" font-size="14">Learn more cautiously from preference signals that break under a local perturbation.</text>
+  </g>
+</svg>

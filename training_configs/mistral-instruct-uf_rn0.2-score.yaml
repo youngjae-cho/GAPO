@@ -1,0 +1,44 @@
+# Scoring-only config: matches the training-time loss of
+#   outputs/mistral-7b-instruct-gapo_noise_0.2_check_2
+# (mistral-instruct + uf_random_flip_r02 + GAPO with beta=4 / gamma/beta=0.2 / rho=0.025).
+#
+# Used by scripts/score_dataset.py to compute Anchor Gap Gamma at each
+# checkpoint with the same logit definition the trainer optimized.
+
+# Model arguments (overridden per checkpoint by the sweep wrapper)
+model_name_or_path: mistralai/Mistral-7B-Instruct-v0.2
+torch_dtype: null
+attn_implementation: flash_attention_2
+
+# Data
+dataset_mixer:
+  /home/jerome/GAPO/datasets/uf_random_flip_r02: 1.0
+dataset_splits:
+- train_prefs
+- test_prefs
+preprocessing_num_workers: 12
+
+# SimPOConfig (TrainingArguments) — only the loss-shaping fields matter for scoring
+bf16: true
+beta: 4.0
+gamma_beta_ratio: 0.2
+do_eval: false
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+learning_rate: 5.0e-7         # unused (no training)
+logging_steps: 50
+lr_scheduler_type: cosine
+max_length: 2048
+max_prompt_length: 1800
+num_train_epochs: 1            # unused
+optim: adamw_torch
+output_dir: outputs/_score_dummy
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 4
+push_to_hub: false
+report_to: []
+save_strategy: "no"
+seed: 42
+warmup_ratio: 0.0

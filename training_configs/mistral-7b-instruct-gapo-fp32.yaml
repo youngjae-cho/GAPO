@@ -1,0 +1,49 @@
+# Preserve the current GAPO algorithm/hyperparameters; use FP32 for actual
+# weights and forwards so small perturbations survive weight addition.
+model_name_or_path: mistralai/Mistral-7B-Instruct-v0.2
+torch_dtype: float32
+attn_implementation: sdpa
+dataset_mixer:
+  princeton-nlp/mistral-instruct-ultrafeedback: 1.0
+dataset_splits:
+- train
+- test
+preprocessing_num_workers: 12
+dataset_num_proc: 12
+bf16: false
+fp16: false
+tf32: false
+perturb_require_fp32: true
+perturb_diagnostics: true
+perturb_mode: pessimistic
+beta: 2.5
+gamma_beta_ratio: 0.1
+rho: 0.025
+do_eval: true
+evaluation_strategy: steps
+eval_steps: 400
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+learning_rate: 5.0e-7
+log_level: info
+logging_steps: 1
+lr_scheduler_type: cosine
+max_length: 2048
+max_prompt_length: 1800
+num_train_epochs: 1
+optim: adamw_torch
+output_dir: outputs/mistral-7b-instruct-gapo-fp32
+run_name: mistral-7b-instruct-gapo-fp32
+# Four ranks x 8 pairs = the same 32-pair shared anchor as the original
+# two-rank run; accumulation=4 preserves the effective batch size of 128.
+per_device_train_batch_size: 8
+per_device_eval_batch_size: 4
+push_to_hub: false
+save_strategy: steps
+save_steps: 116
+save_total_limit: 2
+report_to: []
+seed: 42
+warmup_ratio: 0.1
